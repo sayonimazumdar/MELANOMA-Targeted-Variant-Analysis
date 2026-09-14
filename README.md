@@ -16,48 +16,60 @@ The pipeline performs:
 - Functional variant annotation
 - Variant interpretation
 
-Workflow
-FASTQ
-   │
-   ▼
-Quality Control (FastQC)
-   │
-   ▼
-Read Trimming (fastp / Trimmomatic)
-   │
-   ▼
-Alignment (BWA-MEM)
-   │
-   ▼
+
+## Workflow
+
+```text
+Raw FASTQ Files
+       │
+       ▼
+Quality Control
+     FastQC
+       │
+       ▼
+Read Trimming
+fastp / Trimmomatic
+       │
+       ▼
+Alignment
+    BWA-MEM
+       │
+       ▼
 Sorted BAM
-   │
-   ▼
+       │
+       ▼
 Duplicate Marking
-   │
-   ▼
-Base Quality Score Recalibration (BQSR)
-          │
-   ├───────────────┐
-   ▼               ▼
-Germline         Somatic
-HaplotypeCaller  Mutect2
-   │               │
-   ▼               ▼
-     Filtered VCFs
-          │
-          ▼
-  Annotation (Funcotator)
-          │
-          ▼
- Final Annotated Variants
+     Picard
+       │
+       ▼
+Base Quality Score Recalibration
+       BQSR
+       │
+       ├──────────────────────┐
+       ▼                      ▼
+Germline Analysis       Somatic Analysis
+HaplotypeCaller              Mutect2
+       │                      │
+       └──────────┬───────────┘
+                  ▼
+            Filtered VCFs
+                  │
+                  ▼
+        Variant Annotation
+            Funcotator
+                  │
+                  ▼
+       Final Annotated Variants
+```
 
 
-Targeted Panels
+
+## Targeted Panels
 | Panel                       | Description                                      |
 | --------------------------- | ------------------------------------------------ |
 | Ion AmpliSeq Melanoma Panel | 22 Targeted sequencing of melanoma-associated genes |
 
-Software
+## Software
 | Tool            | Purpose                               |
 | --------------- | ------------------------------------- |
 | FastQC          | Raw read quality assessment           |
@@ -71,8 +83,8 @@ Software
 | Funcotator      | Functional variant annotation         |
 | bcftools        | VCF processing and variant filtering  |
 
-Reproducibility
+## Reproducibility
 The complete workflows are provided as shell scripts in the workflow_script/ directory.
 
-Citation
+## Citation
 If you use this workflow in your research or academic project, please cite this repository.
