@@ -64,7 +64,7 @@ echo "All required tools are available."
 # FASTQC
 #=======================================
 echo "FastQC is running.........."
-fastqc $FASTQ_TUMOR1 $FASTQ_TUMOR2 $FASTQ_NORMAL1 $FASTQ_NORMAL2 -o $OUTDIR/qc_reports
+fastqc $FASTQ_TUMOR1 $FASTQ_TUMOR2 $FASTQ_NORMAL1 $FASTQ_NORMAL2 -o $OUTPUT/qc_reports
 
 #=======================================
 # TRIMMING
@@ -100,12 +100,12 @@ done
 #=======================================
 echo "Aligning reads........"
 bwa mem -t 8 -R "@RG\tID:${TUMOR}\tSM:${TUMOR}\tPL:ILLUMINA" $REF \
-  $OUTPUT/trimmed_reads/${TUMOR}_R1_paired.fq.gz $OUTDIR/trimmed_reads/${TUMOR}_R2_paired.fq.gz \
+  $OUTPUT/trimmed_reads/${TUMOR}_R1_paired.fq.gz $OUTPUT/trimmed_reads/${TUMOR}_R2_paired.fq.gz \
   | samtools sort -o $OUTPUT/bam_files/${TUMOR}_sorted.bam
 
 bwa mem -t 8 -R "@RG\tID:${NORMAL}\tSM:${NORMAL}\tPL:ILLUMINA" $REF \
-  $OUTPUT/trimmed_reads/${NORMAL}_R1_paired.fq.gz $OUTDIR/trimmed_reads/${NORMAL}_R2_paired.fq.gz \
-  | samtools sort -o $OUTDIR/bam_files/${NORMAL}_sorted.bam
+  $OUTPUT/trimmed_reads/${NORMAL}_R1_paired.fq.gz $OUTPUT/trimmed_reads/${NORMAL}_R2_paired.fq.gz \
+  | samtools sort -o $OUTPUT/bam_files/${NORMAL}_sorted.bam
   
 #=======================================
 # Indexing with samtools
@@ -153,7 +153,7 @@ gatk ApplyBQSR \
   -I $OUTPUT/bam_files/${NORMAL}_dedup.bam -R $REF \
   --bqsr-recal-file $OUTDIR/logs/${NORMAL}_recal.table \
   -O $OUTPUT/bam_files/${NORMAL}_recal.bam
-samtools index $OUTDIR/bam_files/${NORMAL}_recal.bam
+samtools index $OUTPUT/bam_files/${NORMAL}_recal.bam
 
 #=======================================
 # Paths for VCF outputs
