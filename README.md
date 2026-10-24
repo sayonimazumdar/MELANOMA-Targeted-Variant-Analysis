@@ -73,7 +73,7 @@ HaplotypeCaller              Mutect2
 | Tool            | Purpose                               |
 | --------------- | ------------------------------------- |
 | FastQC          | Raw read quality assessment           |
-| fastp           | Adapter and quality trimming          |
+| Trimmomatic           | Adapter and quality trimming          |
 | BWA-MEM         | Read alignment                        |
 | SAMtools        | BAM processing and quality assessment |
 | Picard          | Duplicate marking and BAM processing  |
