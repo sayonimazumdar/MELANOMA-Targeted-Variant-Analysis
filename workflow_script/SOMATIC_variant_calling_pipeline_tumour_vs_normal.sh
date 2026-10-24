@@ -45,7 +45,7 @@ mkdir -p $OUTPUT/{qc_reports,trimmed_reads,bam_files,vcf_files,logs}
 echo "Checking required WES tools..."
 
 # List required tools
-REQUIRED_TOOLS=("fastp" "trimmomatic" "bwa" "samtools" "gatk")
+REQUIRED_TOOLS=("fastqc" "trimmomatic" "bwa" "samtools" "gatk" "tabix")
 
 for tool in "${REQUIRED_TOOLS[@]}"
 do
